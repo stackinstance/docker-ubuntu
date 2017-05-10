@@ -33,6 +33,15 @@ RUN sed -i \
     -e 's/\/www\/html/\/www\/web/g' \
     /etc/httpd/conf/httpd.conf
 
+#
+# Global PHP configuration changes
+#
+RUN sed -i \
+    -e 's~^;date.timezone =$~date.timezone = Europe/Amsterdam~g' \
+    -e 's~^;user_ini.filename =$~user_ini.filename =~g' \
+    -e 's~^sendmail_path = /usr/sbin/sendmail -t -i$~sendmail_path = /usr/bin/msmtp -C /etc/msmtprc -t -i~g' \
+    /etc/php.ini
+
 ADD website.conf /etc/httpd/conf.d/
 
 EXPOSE 80 443
