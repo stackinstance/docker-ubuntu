@@ -1,5 +1,4 @@
-{
-    "name" : "stackinstance/docker-centos",
+me" : "stackinstance/docker-centos",
     "description" : "Stack Instance Docker Centos",
     "type" : "symfony-bundle",
     "authors" : [{
@@ -20,7 +19,7 @@
         "url" : "https://github.com/stackinstance/docker-centos"
     }],
     "target-dir": "/",
-    "version": "0.0.5",
+    "version": "0.0.4444",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "config" : {
@@ -29,6 +28,10 @@
     "scripts": {
         "post-package-install": [
             "bash install.sh"
+        ],
+        "post-install-cmd": [
+            "bash install.sh"
         ]
     }
 }
+
