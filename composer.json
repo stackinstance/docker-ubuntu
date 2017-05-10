@@ -1,0 +1,29 @@
+{
+    "name" : "stackinstance/docker-centos",
+    "description" : "Stack Instance Docker Centos",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Ray Kootstra",
+        "email" : "r.kootstra@stackinstance.com"
+    }],
+    "keywords" : [
+        "docker centos"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+        "php": ">=5.5.0"
+    },
+    "repositories" : [{
+        "type" : "vcs",
+        "url" : "https://github.com/stackinstance/docker-centos"
+    }],
+    "target-dir": "/",
+    "version": "0.0.1",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config" : {
+      "vendor-dir" : "/"
+    }
+}
