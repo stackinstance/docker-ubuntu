@@ -1,3 +1,3 @@
-i#!/bin/bash
-
-ln -s "ln -s ../vendor/stackinstance/docker-centos/docker docker"
+#!/bin/bash
+mkdir ../../../docker
+ln -s docker ../../../docker
