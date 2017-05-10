@@ -20,7 +20,7 @@
         "url" : "https://github.com/stackinstance/docker-centos"
     }],
     "target-dir": "/",
-    "version": "0.0.3",
+    "version": "0.0.4444",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "config" : {
@@ -28,7 +28,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "test -d vendor/stackinstance/docker-centos/docker && ln -s ../vendor/stackinstance/docker-centos/docker docker"
+            "bash install.sh"
         ]
     }
 }
