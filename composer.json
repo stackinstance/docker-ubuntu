@@ -28,10 +28,10 @@
     },
     "scripts": {
         "post-package-install": [
-            "bash ./vendor/stackinstance/docker-centos/install.sh"
+            "bash install.sh"
         ],
         "post-install-cmd": [
-            "bash ./vendor/stackinstance/docker-centos/install.sh"
+            "bash install.sh"
         ]
     }
 }
