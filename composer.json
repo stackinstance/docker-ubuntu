@@ -27,11 +27,9 @@
       "vendor-dir" : "/"
     },
     "scripts": {
-        "post-package-install": [
-            "bash install.sh"
-        ],
         "post-install-cmd": [
-            "bash install.sh"
+            "ln -s ./vendor/stackinstance/docker-centos/docker ./docker",
+	    "cp -r vendor/stackinstance/docker-centos/docker/php-apache/Dockerfile ./."
         ]
     }
 }
