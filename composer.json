@@ -27,7 +27,7 @@
       "vendor-dir" : "/"
     },
     "scripts": {
-        "post-install-cmd": [
+        "post-package-install": [
             "bash install.sh"
         ]
     }
