@@ -25,5 +25,10 @@
     "prefer-stable": true,
     "config" : {
       "vendor-dir" : "/"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "test -d vendor/stackinstance/docker && ln -s ../vendor/stackinstance/docker docker"
+        ]
     }
 }
