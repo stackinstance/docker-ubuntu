@@ -44,6 +44,9 @@ RUN sed -i \
 
 ADD website.conf /etc/httpd/conf.d/
 
+RUN  echo "IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config
+RUN  echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+
 EXPOSE 80 443
 
 CMD /usr/sbin/httpd -c "ErrorLog /dev/stdout" -DFOREGROUND
