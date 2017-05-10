@@ -1,4 +1,5 @@
-me" : "stackinstance/docker-centos",
+{
+    "name" : "stackinstance/docker-centos",
     "description" : "Stack Instance Docker Centos",
     "type" : "symfony-bundle",
     "authors" : [{
