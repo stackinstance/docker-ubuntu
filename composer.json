@@ -1,13 +1,13 @@
 {
-    "name" : "stackinstance/docker-centos",
-    "description" : "Stack Instance Docker Centos",
+    "name" : "stackinstance/docker-ubuntu",
+    "description" : "Stack Instance Docker Ubuntu",
     "type" : "symfony-bundle",
     "authors" : [{
         "name" : "Ray Kootstra",
         "email" : "r.kootstra@stackinstance.com"
     }],
     "keywords" : [
-        "docker centos"
+        "docker ubuntu"
     ],
     "license" : [
         "MIT"
@@ -17,10 +17,10 @@
     },
     "repositories" : [{
         "type" : "vcs",
-        "url" : "https://github.com/stackinstance/docker-centos"
+        "url" : "https://github.com/stackinstance/docker-ubuntu"
     }],
     "target-dir": "/",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "config" : {
@@ -28,8 +28,8 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "ln -s ./vendor/stackinstance/docker-centos/docker ./docker",
-	    "cp -r vendor/stackinstance/docker-centos/docker/php-apache/Dockerfile ./."
+            "ln -s ./vendor/stackinstance/docker-ubuntu/docker ./docker",
+	    "cp -r vendor/stackinstance/docker-ubuntu/docker/php-apache/Dockerfile ./."
         ]
     }
 }
