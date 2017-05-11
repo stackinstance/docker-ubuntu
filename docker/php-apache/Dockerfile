@@ -1,52 +1,30 @@
-FROM centos:7
-
+FROM ubuntu:14.04
 MAINTAINER StackInstance <info@stackinstance.com>
 
-RUN yum -y install httpd mysql-devel mysql-libs mod_ssl
-RUN yum -y install php php-cli php-ldap php-mbstring php-mcrypt php-mysql php-pear-MDB2-Driver-mysqli php-pecl-memcached php-xml php-gd php-pear php-devel httpd-devel pcre-devel gcc make
-RUN yum -y update bash
-RUN yum -y install yum clean all
+RUN apt-get -yqq update
+RUN apt-get -yqq install apache2 curl git php5 php5-gd php5-mysql php5-curl php5-mcrypt php5-xmlrpc php5-imagick php5-apcu php5-intl php5-xdebug
 
-RUN pecl install apc
-RUN echo "extension=apc.so" > /etc/php.d/apc.ini
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
+ENV APACHE_RUN_DIR /var/run/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
 
-#
-# Global Apache configuration changes
-#
-RUN sed -i \
-    -e 's~^ServerSignature On$~ServerSignature Off~g' \
-    -e 's~^ServerTokens OS$~ServerTokens Prod~g' \
-    -e 's~^#ExtendedStatus On$~ExtendedStatus On~g' \
-    -e 's~^DirectoryIndex \(.*\)$~DirectoryIndex \1 index.php~g' \
-    -e 's~^NameVirtualHost \(.*\)$~#NameVirtualHost \1~g' \
-    /etc/httpd/conf/httpd.conf
+RUN php5enmod gd mysql curl mcrypt xmlrpc imagick apcu intl
+RUN a2enmod expires ssl rewrite headers mime_magic vhost_alias
 
-#
-# Disable Apache directory indexes
-#
-RUN sed -i \
-    -e 's~^IndexOptions \(.*\)$~#IndexOptions \1~g' \
-    -e 's~^IndexIgnore \(.*\)$~#IndexIgnore \1~g' \
-    -e 's~^AddIconByEncoding \(.*\)$~#AddIconByEncoding \1~g' \
-    -e 's~^AddIconByType \(.*\)$~#AddIconByType \1~g' \
-    -e 's~^AddIcon \(.*\)$~#AddIcon \1~g' \
-    -e 's~^DefaultIcon \(.*\)$~#DefaultIcon \1~g' \
-    -e 's~^ReadmeName \(.*\)$~#ReadmeName \1~g' \
-    -e 's~^HeaderName \(.*\)$~#HeaderName \1~g' \
-    -e 's/\/www\/html/\/www\/web/g' \
-    /etc/httpd/conf/httpd.conf
+RUN mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR /var/www
+RUN chown $APACHE_RUN_USER:$APACHE_RUN_GROUP /var/www
 
-#
-# Global PHP configuration changes
-#
-RUN sed -i \
-    -e 's~^;date.timezone =$~date.timezone = Europe/Amsterdam~g' \
-    -e 's~^;user_ini.filename =$~user_ini.filename =~g' \
-    -e 's~^sendmail_path = /usr/sbin/sendmail -t -i$~sendmail_path = /usr/bin/msmtp -C /etc/msmtprc -t -i~g' \
-    /etc/php.ini
+ADD website.conf /etc/apache2/sites-available/
 
-ADD website.conf /etc/httpd/conf.d/
+RUN ln -s /etc/apache2/sites-available/website.conf /etc/apache2/sites-enabled/website.conf
+RUN rm /etc/apache2/sites-enabled/000-default.conf
 
-EXPOSE 80 443
+COPY 20-xdebug.ini /etc/php5/cli/conf.d/20-xdebug.ini
 
-CMD /usr/sbin/httpd -c "ErrorLog /dev/stdout" -DFOREGROUND
+EXPOSE 80
+
+ENTRYPOINT [ "/usr/sbin/apache2" ]
+CMD ["-D", "FOREGROUND"]
