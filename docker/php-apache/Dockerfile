@@ -3,9 +3,11 @@ FROM centos:7
 MAINTAINER StackInstance <info@stackinstance.com>
 
 RUN yum -y install httpd mysql-devel mysql-libs mod_ssl
-RUN yum -y install php php-cli php-ldap php-mbstring php-mcrypt php-mysql php-pear-MDB2-Driver-mysqli php-pecl-memcached php-xml php-gd
+RUN yum -y install php php-cli php-ldap php-mbstring php-mcrypt php-mysql php-pear-MDB2-Driver-mysqli php-pecl-memcached php-xml php-gd php-pecl-apc
 RUN yum -y update bash
 RUN yum -y install yum clean all
+
+RUN echo "extension=apc.so" > /etc/php.d/apc.ini
 
 #
 # Global Apache configuration changes
