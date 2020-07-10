@@ -22,6 +22,5 @@ vendor/stackinstance/docker-ubuntu/docker/tools/rebuild.sh
 Your (local) project **root** will be mapped to the **/var/www** directory on the Docker instance. The **web root** folder is mapped to the (local) **web** directory in your project.
 
 ## Website
-- http://www.stackinstance.com
 - http://www.raymondkootstra.nl
 
